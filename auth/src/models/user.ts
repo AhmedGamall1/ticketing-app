@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Password } from "../services/password.js";
 
 interface UserAttrs {
   email: string;
@@ -26,6 +27,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+userSchema.pre("save", async function (done) {
+  if (this.isModified("password")) {
+    const hashed = await Password.toHash(this.get("password"));
+    this.set("password", hashed);
+  }
 });
 
 // Adding a static method to the user schema for building a new user

@@ -11,13 +11,15 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@types/mongoose": "^5.11.96",
+    "bcrypt": "^6.0.0",
     "express": "^5.2.1",
     "express-validator": "^7.3.1",
     "mongoose": "^9.2.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
+    "@types/mongoose": "^5.11.96",
     "@types/node": "^25.3.2",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
