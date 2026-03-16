@@ -1,24 +1,22 @@
 import jwt from "jsonwebtoken";
 import express, { type Request, type Response } from "express";
-import { body, validationResult } from "express-validator";
-import { RequestValidationError } from "../errors/request-validation-error.js";
+import { body } from "express-validator";
 import { BadRequestError } from "../errors/bad-request-error.js";
 import { User } from "../models/user.js";
 import { Password } from "../services/password.js";
+import { validateRequest } from "../middlewares/validate-request.js";
+
 const router = express.Router();
+const signinValidation = [
+  body("email").isEmail().withMessage("Email must be valid"),
+  body("password").trim().notEmpty().withMessage("Password must be provided"),
+];
 
 router.post(
   "/api/users/signin",
-  [
-    body("email").isEmail().withMessage("Email must be valid"),
-    body("password").trim().notEmpty().withMessage("Password must be provided"),
-  ],
+  signinValidation,
+  validateRequest,
   async (req: Request, res: Response) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
-
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });

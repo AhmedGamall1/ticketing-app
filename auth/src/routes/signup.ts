@@ -4,26 +4,22 @@ import { RequestValidationError } from "../errors/request-validation-error.js";
 import { User } from "../models/user.js";
 import { BadRequestError } from "../errors/bad-request-error.js";
 import jwt from "jsonwebtoken";
+import { validateRequest } from "../middlewares/validate-request.js";
 
 const router = express.Router();
+const signupValidation = [
+  body("email").isEmail().withMessage("Email must be valid"),
+  body("password")
+    .trim()
+    .isLength({ min: 4, max: 20 })
+    .withMessage("Password must be between 4 and 20 characters"),
+];
 
 router.post(
   "/api/users/signup",
-  [
-    body("email").isEmail().withMessage("Email must be valid"),
-    body("password")
-      .trim()
-      .isLength({ min: 4, max: 20 })
-      .withMessage("Password must be between 4 and 20 characters"),
-  ],
+  signupValidation,
+  validateRequest,
   async (req: Request, res: Response) => {
-    // Validate the incomming request data
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
-
-    // Extract data from the request body
     const { email, password } = req.body;
 
     // Check user already exists
