@@ -7,8 +7,6 @@ export const errorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.error(err.message);
-
   if (err instanceof CustomError) {
     const errors = err.serializeErrors();
     const statusCode = err.statusCode || 500;

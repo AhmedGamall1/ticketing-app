@@ -5,11 +5,25 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec node --no-warnings --loader ts-node/esm src/index.ts",
-    "test": "jest --watchAll --no-cache"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --no-cache"
   },
   "jest": {
-    "preset": "ts-jest",
+    "preset": "ts-jest/presets/default-esm",
     "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [
+      ".ts"
+    ],
+    "moduleNameMapper": {
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
+    },
     "setupFilesAfterEnv": [
       "./src/test/setup.ts"
     ]
