@@ -1,6 +1,6 @@
 {
   "name": "@tickets2004/common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "devDependencies": {
     "del-cli": "^7.0.0",
     "typescript": "^5.9.3"

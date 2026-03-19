@@ -15,3 +15,5 @@ const t2est: Test = {
 
 console.log(test);
 console.log(t2est);
+
+export default test;
