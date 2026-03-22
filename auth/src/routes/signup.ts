@@ -1,10 +1,8 @@
 import express, { type Request, type Response } from "express";
-import { body, validationResult } from "express-validator";
-import { RequestValidationError } from "../errors/request-validation-error.js";
+import { body } from "express-validator";
 import { User } from "../models/user.js";
-import { BadRequestError } from "../errors/bad-request-error.js";
 import jwt from "jsonwebtoken";
-import { validateRequest } from "../middlewares/validate-request.js";
+import { BadRequestError, validateRequest } from "@tickets2004/common";
 
 const router = express.Router();
 const signupValidation = [

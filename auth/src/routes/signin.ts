@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
 import express, { type Request, type Response } from "express";
 import { body } from "express-validator";
-import { BadRequestError } from "../errors/bad-request-error.js";
 import { User } from "../models/user.js";
 import { Password } from "../services/password.js";
-import { validateRequest } from "../middlewares/validate-request.js";
+import { validateRequest, BadRequestError } from "@tickets2004/common";
 
 const router = express.Router();
 const signinValidation = [
