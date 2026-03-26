@@ -1,6 +1,7 @@
 import express from "express";
-import { NotFoundError, errorHandler } from "@tickets2004/common";
+import { NotFoundError, currentUser, errorHandler } from "@tickets2004/common";
 import cookieSession from "cookie-session";
+import { createTicketRouter } from "./routes/new.js";
 
 const app = express();
 app.set("trust proxy", true);
@@ -13,8 +14,10 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   }),
 );
+app.use(currentUser);
 
 // routes
+app.use(createTicketRouter);
 
 // undefined route handler
 app.use((req, res, next) => {
