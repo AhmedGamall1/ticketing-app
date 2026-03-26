@@ -17,7 +17,7 @@ spec:
           image: ahmedgamal32/auth
           env:
             - name: MONGO_URI
-              value: "mongodb://tickets-mongo-srv:27017/tickets"
+              value: "mongodb://auth-mongo-srv:27017/auth"
             - name: PORT
               value: "3000"
             - name: JWT_KEY
